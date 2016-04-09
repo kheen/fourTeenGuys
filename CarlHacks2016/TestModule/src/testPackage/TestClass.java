@@ -9,4 +9,6 @@ public class TestClass {
         System.out.println("Hello");
     }
 
+    public void sdfh(){}
+
 }
