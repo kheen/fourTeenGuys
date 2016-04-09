@@ -6,7 +6,7 @@ package testPackage;
 public class TestClass {
 
     public static void main (String[] args){
-        System.out.println("My name is Kai a Heen");
+        System.out.println("My name is Kai b Heen");
     }
 
     public void hello(){ }
