@@ -14,8 +14,7 @@ public class MouseGame extends GraphicsProgram{
 
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 700;
-
-    public static MouseEvent e;
+    public static int numCheeses = 10;
 
 
     public void init(){
@@ -26,16 +25,20 @@ public class MouseGame extends GraphicsProgram{
     }
 
     public void run (){
-        mouseClicked(e);
     }
+
 
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        this.e=e;
-        double chX = e.getX();
-        double chY = e.getY();
-        add(new Cheese (chX-WIDTH/200,chY-HEIGHT/200));
+        if (numCheeses>0){
+            double chX = e.getX();
+            double chY = e.getY();
+            add(new Cheese (chX-WIDTH/200,chY-HEIGHT/200));
+            numCheeses--;
+        }
+
+
 
 
     }
