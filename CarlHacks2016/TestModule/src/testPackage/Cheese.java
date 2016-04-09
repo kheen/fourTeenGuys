@@ -6,16 +6,26 @@ import acm.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * Created by Kai on 4/9/16.
  */
-public class Cheese extends GImage{
+public class Cheese{
+
+    GImage cheese;
+    double x;
+    double y;
 
     public Cheese (double x, double y) {
+        this.x=x;
+        this.y=y;
 
-        super ("/Users/Kai/Desktop/Hack/fourTeenGuys/CarlHacks2016/TestModule/src/testPackage/cheese.png",x,y);
+        try {
+            cheese = new GImage(ImageIO.read(getClass().getResource("/cheese.png")));
+        } catch (IOException e) {}
 
-        this.setSize(MouseGame.WIDTH/50,MouseGame.HEIGHT/50);
+        cheese.setLocation(x,y);
+        cheese.setSize(MouseGame.WIDTH/50,MouseGame.HEIGHT/50);
     }
 }
