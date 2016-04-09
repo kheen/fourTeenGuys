@@ -9,6 +9,6 @@ public class TestClass {
         System.out.println("My name is Kai Heen");
     }
 
-    public void hello(){}
+    public void hello(){ }
 
 }
