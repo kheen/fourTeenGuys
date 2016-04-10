@@ -45,11 +45,11 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         bg.setSize(WIDTH, HEIGHT);
         add(bg);
 
-        barrier1 = new Barrier(350, 80, 40, 300);
-        barrier2 = new Barrier(50, 200, 40, 300);
-        barrier3 = new Barrier(250, 150, 40, 300);
-        barrier4 = new Barrier(400, 300, 40, 300);
-        barrier5 = new Barrier(0, 40, 40, 300);
+        barrier1 = new Barrier(0, 250, 320, 20);
+        barrier2 = new Barrier(300, 350, 350, 110);
+        barrier3 = new Barrier(200, 600, 240, 300);
+        barrier4 = new Barrier(800, 200, 80, 400);
+        barrier5 = new Barrier(500, 0, 80, 250);
 
         add(barrier1);
         add(barrier2);
