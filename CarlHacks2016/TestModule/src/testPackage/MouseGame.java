@@ -54,6 +54,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
     public void run (){
 
 
+
         while (numCheesesLeft>0 && numCheesesLeft<=10){
             System.out.println(mouse1.getX());
             System.out.println(mouse1.getY());
@@ -69,7 +70,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
             mouse1.setX(mouse1.getX() + direction.getX());
             mouse1.setY(mouse1.getY() + direction.getY());
 
-            pause(30);
+            pause(20);
         }
     }
 
@@ -101,6 +102,11 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         //Scale down to unit vector
 
         double length = distance(new GPoint(0,0), new GPoint(totalX,totalY));
+
+        if (length==0){
+            return new GPoint (0,0);
+        }
+
         double finalX = totalX/length;
         double finalY = totalY/length;
 

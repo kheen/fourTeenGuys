@@ -27,4 +27,8 @@ public class Door{
         this.door.setSize(MouseGame.WIDTH/15,MouseGame.HEIGHT/8);
     }
 
+//    public boolean hitsMouse (Mouse mouse){
+//        if (this.door.)
+//    }
+
 }
