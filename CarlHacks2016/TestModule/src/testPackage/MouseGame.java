@@ -56,7 +56,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 //        bg.setSize(WIDTH, HEIGHT);
 //        add(bg);
 
-        mouse1 = new Mouse (600,600);
+        mouse1 = new Mouse (100,230);
         add(mouse1.mouse);
         door1 = new Door(100,100);
         add(door1.door);
@@ -179,7 +179,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         double endMouseY = startMouseY + mouse1.mouse.getHeight();
 
         //from the Right
-        if ((endMouseX - 30 > startX && endMouseX + 30 < endX) && (endMouseY - 30 > startY && endMouseY + 30 < endY)) {
+        if ((endMouseX  > startX && endMouseX < endX) && (endMouseY  > startY && endMouseY  < endY)) {
             return true;
         } else {
             return false;
@@ -199,8 +199,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         double endMouseX = startMouseX + mouse.mouse.getWidth();
         double endMouseY = startMouseY + mouse.mouse.getHeight();
 
-        if (((endMouseX > startX && endMouseX < endX) && (endMouseY > startY && endMouseY < endY)
-                || (startMouseX < endX && startMouseX > startX) && (startMouseY < startY && startMouseY > endY))) {
+        if ((endMouseX-5 > startX && startMouseX+5 < endX) && (endMouseY-5 > startY && startMouseY+5 < endY)){
             return true;
         }
         return false;
