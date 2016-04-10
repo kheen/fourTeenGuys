@@ -35,7 +35,7 @@ public class Mouse {
 
 
         mouse.setSize(MouseGame.WIDTH / 20, MouseGame.HEIGHT / 15);
-        mouse.setLocation(x, y);
+        mouse.setLocation(x-10, y-7);
     }
 
 

@@ -14,7 +14,7 @@ public class Barrier extends GRect{
             super(x,y,width,height);
             Color color = new Color(128,128,128);
             setColor(color);
-            setFillColor(Color.PINK);
+            setFillColor(Color.BLACK);
             setFilled(true);
 
         }
