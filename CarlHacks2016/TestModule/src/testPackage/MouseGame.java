@@ -56,6 +56,8 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 
 
         while (numCheesesLeft>0 && numCheesesLeft<=10){
+//          System.out.println(mouse1.getX());
+//          System.out.println(mouse1.getY());
 
 
             GPoint direction = pathFinder(cheeses);
