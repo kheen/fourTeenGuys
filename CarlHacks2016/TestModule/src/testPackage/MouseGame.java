@@ -11,7 +11,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Stack;
 
 /**
@@ -23,6 +22,11 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
     private Door door1;
     private GImage bg;
     private Stack<Cheese> cheeses;
+    private Barrier barrier1;
+    private Barrier barrier2;
+    private Barrier barrier3;
+    private Barrier barrier4;
+    private Barrier barrier5;
 
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 700;
@@ -32,8 +36,21 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
     public void init(){
         setSize(WIDTH, HEIGHT);
         addMouseListeners();
-
         cheeses = new Stack <Cheese> ();
+
+        Cheese emptyCheese = new Cheese(0,0);
+        emptyCheese.setEmptyCheese("Empty");
+        cheeses.push(emptyCheese);
+        barrier1 = new Barrier(350, 80, 40, 315);
+        barrier2 = new Barrier(50, 200, 40, 315);
+        barrier3 = new Barrier(250, 150, 40, 315);
+        barrier4 = new Barrier(400, 300, 40, 315);
+        barrier5 = new Barrier(0, 0, 40, 315);
+        add(barrier1);
+        add(barrier2);
+        add(barrier3);
+        add(barrier4);
+        add(barrier5);
 
 
         //Set Bg
@@ -43,7 +60,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 //        bg.setSize(WIDTH, HEIGHT);
 //        add(bg);
 
-        mouse1 = new Mouse (600,600);
+        mouse1 = new Mouse (100,230);
         add(mouse1.mouse);
         door1 = new Door(100,100);
         add(door1.door);
@@ -65,7 +82,8 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 
             mouse1.mouse.move(xMove, yMove);
 
-            mouse1.setX(mouse1.getX() + direction.getX() * 2);
+
+            mouse1.setX(mouse1.getX() + direction.getX()*2);
             mouse1.setY(mouse1.getY() + direction.getY()*2);
 
             GPoint position = new GPoint (mouse1.getX() + direction.getX() * 2,mouse1.getY() + direction.getY()*2);
@@ -74,6 +92,9 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
                 endgame();
                 break;
             }
+            if (hitsBarrier(barrier1, mouse1) || hitsBarrier(barrier2, mouse1) || hitsBarrier(barrier3, mouse1) || hitsBarrier(barrier4, mouse1) || hitsBarrier(barrier5, mouse1)) {
+                barrierResponse();
+                break;
 
             //Check for Cheese collisions
 
@@ -91,6 +112,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
                 remove(getElementAt(position));
             }
 
+            }
             pause(20);
         }
     }
@@ -125,6 +147,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         double finalX = totalX/length;
         double finalY = totalY/length;
 
+        this.cheeses=newCheeses;
 
         return new GPoint (finalX, finalY);
     }
@@ -156,7 +179,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
     }
 
 
-    public boolean hitsDoor (Mouse mouse){
+    public boolean hitsDoor(Mouse mouse) {
         double startX = door1.door.getX();
         double startY = door1.door.getY();
 
@@ -170,19 +193,54 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         double endMouseY = startMouseY + mouse1.mouse.getHeight();
 
         //from the Right
-        if (endMouseX>startX && endMouseX<endX && endMouseY>startY && endMouseY<endY){
+        if ((endMouseX  > startX && endMouseX < endX) && (endMouseY  > startY && endMouseY  < endY)) {
             return true;
-        }
-
-        else{
+        } else {
             return false;
         }
     }
 
-    public void endgame(){
-        GLabel endLabel = new GLabel ("Congratulations!");
+    public boolean hitsBarrier(Barrier barrier, Mouse mouse) {
+        double startX = barrier.getX();
+        double startY = barrier.getY();
+
+        double endX = startX + barrier.getWidth();
+        double endY = startY + barrier.getHeight();
+
+        double startMouseX = mouse.mouse.getX();
+        double startMouseY = mouse.mouse.getY();
+
+        double endMouseX = startMouseX + mouse.mouse.getWidth();
+        double endMouseY = startMouseY + mouse.mouse.getHeight();
+
+        if ((endMouseX-5 > startX && startMouseX+5 < endX) && (endMouseY-5 > startY && startMouseY+5 < endY)){
+            return true;
+        }
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public void endgame() {
+        GLabel endLabel = new GLabel("Congratulations!");
+        endLabel.setLocation(WIDTH / 2, HEIGHT / 2);
+        add(endLabel);
+    }
+
+    public void barrierResponse(){
+        GLabel endLabel = new GLabel ("GAME OVER. Go try League instead");
         endLabel.setLocation(WIDTH/2,HEIGHT/2);
         add(endLabel);
+
     }
 
 }
