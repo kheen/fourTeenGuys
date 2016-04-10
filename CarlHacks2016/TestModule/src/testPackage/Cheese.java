@@ -16,6 +16,7 @@ public class Cheese {
     GImage cheese;
     double x;
     double y;
+    String emptyCheese = "Hi";
 
     public Cheese(double x, double y) {
         this.x = x;
@@ -47,6 +48,12 @@ public class Cheese {
             return ("Banana");
         }
         return "Orange";
+    }
+    public String getEmptyCheese(){
+        return emptyCheese;
+    }
 
+    public void setEmptyCheese(String s){
+        this.emptyCheese = s;
     }
 }
