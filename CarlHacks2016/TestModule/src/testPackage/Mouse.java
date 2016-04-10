@@ -36,12 +36,29 @@ public class Mouse {
         mouse.setLocation(x, y);
     }
 
-    public double distance(GPoint x1, GPoint x2) {
-        double mouseX = x1.getX();
-        double mouseY = x1.getY();
-        double cheeseX = x2.getX();
-        double cheeseY = x2.getY();
-        double dis = Math.sqrt(Math.pow(cheeseX - mouseX, 2) + Math.pow(cheeseY - mouseY, 2));
-        return dis;
+
+    public GImage getMouse() {
+        return mouse;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+
+    public void setMouse(GImage mouse) {
+        this.mouse = mouse;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 }
