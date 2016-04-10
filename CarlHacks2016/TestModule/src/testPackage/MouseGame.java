@@ -1,6 +1,7 @@
 package testPackage;
 
 import acm.graphics.GImage;
+import acm.graphics.GPoint;
 import acm.program.GraphicsProgram;
 
 import javax.imageio.ImageIO;
@@ -8,15 +9,17 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Kai on 4/9/16.
  */
 public class MouseGame extends GraphicsProgram implements MouseListener {
 
-    Mouse mouse1;
-    Door door1;
-    GImage bg;
+    private Mouse mouse1;
+    private Door door1;
+    private GImage bg;
+    private ArrayList<Cheese> cheeses;
 
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 700;
@@ -26,6 +29,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
     public void init(){
         setSize(WIDTH, HEIGHT);
         addMouseListeners();
+        cheeses = new ArrayList<Cheese>();
 
         //Set Bg
         try {
@@ -43,6 +47,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
     }
 
     public void run (){
+
     }
 
 
@@ -52,12 +57,13 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         if (numCheeses>0){
             double chX = e.getX();
             double chY = e.getY();
-            add(new Cheese(chX-WIDTH/200,chY-HEIGHT/200).cheese);
+            Cheese c1 = new Cheese (chX-WIDTH/200,chY-HEIGHT/200);
+            add(c1.cheese);
+            cheeses.add(c1);
             numCheeses--;
         }
 
-
-
-
     }
+
+
 }
