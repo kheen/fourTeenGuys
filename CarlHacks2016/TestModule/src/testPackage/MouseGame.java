@@ -63,6 +63,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         door1 = new Door(100,100);
         add(door1.door);
         cheeseLeft = new GLabel("You have " + numCheesesLeft + " Cheeses Left");
+        cheeseLeft.setColor(Color.WHITE);
         cheeseLeft.setLocation(WIDTH-150,50);
         add(cheeseLeft);
 
@@ -113,7 +114,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
                 }
                 remove(getElementAt(position));
             }
-            pause(20);
+            pause(2);
         }
 
     }
@@ -222,13 +223,15 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         GLabel endLabel = new GLabel("Congratulations!");
         endLabel.setLocation(WIDTH / 2, HEIGHT / 2);
         endLabel.setFont("Arial 40");
+        endLabel.setColor(Color.WHITE);
         add(endLabel);
     }
 
     public void barrierResponse(){
         GLabel endLabel = new GLabel ("GAME OVER. Go try League instead");
         endLabel.setLocation(WIDTH/2,HEIGHT/2);
-        //endLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        endLabel.setFont("Arial 40");
+        endLabel.setColor(Color.WHITE);
         add(endLabel);
     }
 
