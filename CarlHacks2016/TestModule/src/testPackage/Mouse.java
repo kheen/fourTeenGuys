@@ -23,13 +23,15 @@ public class Mouse {
 
     public Mouse(double x, double y) {
 
-        this.x = x;
-        this.y = y;
+
 
         try {
             mouse = new GImage(ImageIO.read(getClass().getResource("/mouse.png")));
         } catch (IOException e) {
         }
+
+        this.x = x+15;
+        this.y = y+15;
 
 
         mouse.setSize(MouseGame.WIDTH / 20, MouseGame.HEIGHT / 15);
@@ -60,5 +62,16 @@ public class Mouse {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == null || !(other instanceof Mouse)) {
+            return false;
+        }
+
+        Mouse mouse = (Mouse) other;
+        return (mouse.getX()==x && mouse.getY()==y);
     }
 }

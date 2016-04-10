@@ -16,11 +16,10 @@ public class Cheese {
     GImage cheese;
     double x;
     double y;
-    String emptyCheese = "Hi";
 
     public Cheese(double x, double y) {
-        this.x = x;
-        this.y = y;
+        this.x = x+10;
+        this.y = y+10;
 
         try {
             cheese = new GImage(ImageIO.read(getClass().getResource("/cheese.png")));
@@ -48,12 +47,5 @@ public class Cheese {
             return ("Banana");
         }
         return "Orange";
-    }
-    public String getEmptyCheese(){
-        return emptyCheese;
-    }
-
-    public void setEmptyCheese(String s){
-        this.emptyCheese = s;
     }
 }

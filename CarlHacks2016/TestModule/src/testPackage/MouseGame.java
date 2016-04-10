@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Stack;
 
 /**
@@ -31,11 +32,9 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
     public void init(){
         setSize(WIDTH, HEIGHT);
         addMouseListeners();
+
         cheeses = new Stack <Cheese> ();
 
-        Cheese emptyCheese = new Cheese(0,0);
-        emptyCheese.setEmptyCheese("Empty");
-        cheeses.push(emptyCheese);
 
         //Set Bg
 //        try {
@@ -57,9 +56,8 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 
 
         while (numCheesesLeft>0 && numCheesesLeft<=10){
-            System.out.println(mouse1.getX());
-            System.out.println(mouse1.getY());
-
+//          System.out.println(mouse1.getX());
+//          System.out.println(mouse1.getY());
 
             GPoint direction = pathFinder(cheeses);
             double xMove = direction.getX()*2;
@@ -67,13 +65,30 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 
             mouse1.mouse.move(xMove, yMove);
 
-
-            mouse1.setX(mouse1.getX() + direction.getX()*2);
+            mouse1.setX(mouse1.getX() + direction.getX() * 2);
             mouse1.setY(mouse1.getY() + direction.getY()*2);
+
+            GPoint position = new GPoint (mouse1.getX() + direction.getX() * 2,mouse1.getY() + direction.getY()*2);
 
             if (hitsDoor(mouse1)){
                 endgame();
                 break;
+            }
+
+            //Check for Cheese collisions
+
+            if (getElementAt(position) != null && (getElementAt(position) != mouse1.mouse) && (getElementAt(position)!= door1.door)){
+                System.out.println("Hello");
+
+                Iterator <Cheese> iter = cheeses.iterator();
+
+                while (iter.hasNext()){
+                    Cheese c = iter.next();
+                    if ((Math.abs(c.getX()-mouse1.mouse.getX())<35) && (Math.abs(c.getY()-mouse1.mouse.getY())<35)){
+                        iter.remove();
+                    }
+                }
+                remove(getElementAt(position));
             }
 
             pause(20);
@@ -84,32 +99,24 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 
     public GPoint pathFinder(Stack<Cheese> cheeses){
 
-//        System.out.println("SDJKHFGKSDFJHGKSFDJHGSDFKJHGFSKJHGDFKJHSDFGKSDJFHG");
-        Stack newCheeses = new Stack <Cheese> ();
-
-        Cheese emptyCheese = new Cheese(0,0);
-        emptyCheese.setEmptyCheese("Empty");
-        newCheeses.push(emptyCheese);
-
+        Iterator <Cheese> iter = cheeses.iterator();
 
         //Final cheese-mouse vector
         double totalX = 0;
         double totalY = 0;
 
         //add up all cheese-mouse vectors
-            while ((cheeses.peek().getEmptyCheese()).equals("Hi")) {
-                Cheese chz = cheeses.pop();
-                double vectorX = (chz.getX() - mouse1.getX())/Math.pow(distance(mouse1.mouse.getLocation(),chz.cheese.getLocation()),3);
-                double vectorY = (chz.getY() - mouse1.getY())/Math.pow(distance(mouse1.mouse.getLocation(),chz.cheese.getLocation()),3);
+            while (iter.hasNext()) {
+                Cheese chz = iter.next();
+                double vectorX = (chz.getX() - mouse1.getX()) / Math.pow(distance(mouse1.mouse.getLocation(),chz.cheese.getLocation()),3);
+                double vectorY = (chz.getY() - mouse1.getY()) / Math.pow(distance(mouse1.mouse.getLocation(),chz.cheese.getLocation()),3);
                 totalX += vectorX;
                 totalY += vectorY;
-                newCheeses.push(chz);
             }
 
         //Scale down to unit vector
 
         double length = distance(new GPoint(0,0), new GPoint(totalX,totalY));
-        System.out.println(totalX);
 
         if (length==0){
             return new GPoint (0,0);
@@ -118,7 +125,6 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         double finalX = totalX/length;
         double finalY = totalY/length;
 
-        this.cheeses=newCheeses;
 
         return new GPoint (finalX, finalY);
     }
@@ -177,7 +183,6 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         GLabel endLabel = new GLabel ("Congratulations!");
         endLabel.setLocation(WIDTH/2,HEIGHT/2);
         add(endLabel);
-
     }
 
 }
