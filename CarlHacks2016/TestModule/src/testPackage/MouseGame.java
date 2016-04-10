@@ -1,6 +1,7 @@
 package testPackage;
 
 import acm.graphics.GImage;
+import acm.graphics.GLabel;
 import acm.graphics.GPoint;
 import acm.program.GraphicsProgram;
 
@@ -66,9 +67,13 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
             mouse1.mouse.move(xMove, yMove);
 
 
-
             mouse1.setX(mouse1.getX() + direction.getX());
             mouse1.setY(mouse1.getY() + direction.getY());
+
+            if (hitsDoor(mouse1)){
+                endgame();
+                break;
+            }
 
             pause(20);
         }
@@ -78,6 +83,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 
     public GPoint pathFinder(Stack<Cheese> cheeses){
 
+        System.out.println("SDJKHFGKSDFJHGKSFDJHGSDFKJHGFSKJHGDFKJHSDFGKSDJFHG");
         Stack newCheeses = new Stack <Cheese> ();
 
         Cheese emptyCheese = new Cheese(0,0);
@@ -141,5 +147,35 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 
     }
 
+
+    public boolean hitsDoor (Mouse mouse){
+        double startX = door1.door.getX();
+        double startY = door1.door.getY();
+
+        double endX = startX + door1.door.getWidth();
+        double endY = startY + door1.door.getHeight();
+
+        double startMouseX = mouse1.mouse.getX();
+        double startMouseY = mouse1.mouse.getY();
+
+        double endMouseX = startMouseX + mouse1.mouse.getWidth();
+        double endMouseY = startMouseY + mouse1.mouse.getHeight();
+
+        //from the Right
+        if (endMouseX>startX && endMouseX<endX && endMouseY>startY && endMouseY<endY){
+            return true;
+        }
+
+        else{
+            return false;
+        }
+    }
+
+    public void endgame(){
+        GLabel endLabel = new GLabel ("Congratulations!");
+        endLabel.setLocation(WIDTH/2,HEIGHT/2);
+        add(endLabel);
+
+    }
 
 }
