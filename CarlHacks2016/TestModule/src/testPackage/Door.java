@@ -15,8 +15,8 @@ public class Door{
 
 
     public Door (double x, double y) {
-        this.x=x;
-        this.y=y;
+        this.x=x+30;
+        this.y=y+30;
 
         try {
             this.door = new GImage(ImageIO.read(getClass().getResource("/door.png")));
@@ -27,5 +27,15 @@ public class Door{
         this.door.setSize(MouseGame.WIDTH/15,MouseGame.HEIGHT/8);
     }
 
+    public GImage getDoor() {
+        return door;
+    }
 
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
 }

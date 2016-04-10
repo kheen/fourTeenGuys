@@ -32,18 +32,19 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 700;
     public static int numCheesesLeft = 10;
-
+    public GLabel cheeseLeft;
 
     public void init(){
         setSize(WIDTH, HEIGHT);
         addMouseListeners();
         cheeses = new Stack <Cheese> ();
 
-        barrier1 = new Barrier(350, 80, 10, 315);
-        barrier2 = new Barrier(50, 200, 40, 315);
-        barrier3 = new Barrier(250, 150, 40, 315);
-        barrier4 = new Barrier(400, 300, 40, 315);
-        barrier5 = new Barrier(0, 0, 40, 315);
+        barrier1 = new Barrier(0, 0, 0, 0);
+        barrier2 = new Barrier(0, 200, 0, 0);
+        barrier3 = new Barrier(0, 150, 0, 0);
+        barrier4 = new Barrier(0, 300, 0, 0);
+        barrier5 = new Barrier(0, 0, 0, 0);
+
         add(barrier1);
         add(barrier2);
         add(barrier3);
@@ -51,17 +52,19 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         add(barrier5);
 
 
-        //Set Bg
-//        try {
-//            bg = new GImage(ImageIO.read(getClass().getResource("/floor.jpg")));
-//        } catch (IOException e) {}
-//        bg.setSize(WIDTH, HEIGHT);
-//        add(bg);
+        try {
+            bg = new GImage(ImageIO.read(getClass().getResource("/floor.jpg")));
+        } catch (IOException e) {}
+        bg.setSize(WIDTH, HEIGHT);
+        add(bg);
 
         mouse1 = new Mouse (600,600);
         add(mouse1.mouse);
         door1 = new Door(100,100);
         add(door1.door);
+        cheeseLeft = new GLabel("You have " + numCheesesLeft + " Cheeses Left");
+        cheeseLeft.setLocation(WIDTH-150,50);
+        add(cheeseLeft);
 
 
     }
@@ -69,8 +72,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
     public void run (){
 
 
-
-        while (numCheesesLeft>0 && numCheesesLeft<=10){
+        while (true){
 //          System.out.println(mouse1.getX());
 //          System.out.println(mouse1.getY());
 
@@ -105,7 +107,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 
                 while (iter.hasNext()){
                     Cheese c = iter.next();
-                    if ((Math.abs(c.getX()-mouse1.mouse.getX())<35) && (Math.abs(c.getY()-mouse1.mouse.getY())<35)){
+                    if ((Math.abs(c.getX()-mouse1.mouse.getX())<40) && (Math.abs(c.getY()-mouse1.mouse.getY())<40)){
                         iter.remove();
                     }
                 }
@@ -113,6 +115,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
             }
             pause(20);
         }
+
     }
 
 
@@ -171,29 +174,23 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
             numCheesesLeft--;
             System.out.println(numCheesesLeft);
             add(c1.cheese);
+            cheeseLeft.setLabel("You have " + numCheesesLeft + " Cheeses Left");
         }
 
     }
 
 
     public boolean hitsDoor (Mouse mouse){
-        double startX = door1.door.getX();
-        double startY = door1.door.getY();
+        double doorX = door1.getX();
+        double doorY = door1.getY();
 
-        double endX = startX + door1.door.getWidth();
-        double endY = startY + door1.door.getHeight();
-
-        double startMouseX = mouse1.mouse.getX();
-        double startMouseY = mouse1.mouse.getY();
-
-        double endMouseX = startMouseX + mouse1.mouse.getWidth();
-        double endMouseY = startMouseY + mouse1.mouse.getHeight();
+        double mouseX = mouse1.getX();
+        double mouseY = mouse1.getY();
 
         //from the Right
-        if (endMouseX>startX && endMouseX<endX && endMouseY>startY && endMouseY<endY){
+        if (Math.abs(mouseX-doorX) < 40 && Math.abs(mouseY-doorY) < 40) {
             return true;
         }
-
         else{
             return false;
         }
@@ -217,14 +214,6 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         }
         return false;
     }
-
-
-
-
-
-
-
-
 
 
 
