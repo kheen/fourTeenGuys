@@ -31,7 +31,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 700;
-    public static int numCheesesLeft = 10;
+    public static int numCheesesLeft = 5;
     public GLabel cheeseLeft;
 
     public void init(){
@@ -46,10 +46,10 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         add(bg);
 
         barrier1 = new Barrier(0, 250, 320, 20);
-        barrier2 = new Barrier(300, 350, 350, 110);
+        barrier2 = new Barrier(300, 350, 500, 110);
         barrier3 = new Barrier(200, 600, 240, 100);
-        barrier4 = new Barrier(800, 200, 80, 400);
-        barrier5 = new Barrier(500, 0, 80, 250);
+        barrier4 = new Barrier(300, 0, 20, 150);
+        barrier5 = new Barrier(500, 100, 80, 250);
 
         add(barrier1);
         add(barrier2);
@@ -102,7 +102,6 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
             //Check for Cheese collisions
 
             if (getElementAt(position) != null && (getElementAt(position) != mouse1.mouse) && (getElementAt(position)!= door1.door)){
-                System.out.println("Hello");
 
                 Iterator <Cheese> iter = cheeses.iterator();
 
@@ -114,7 +113,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
                 }
                 remove(getElementAt(position));
             }
-            pause(2);
+            pause(8);
         }
 
     }
@@ -225,6 +224,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         endLabel.setFont("Arial 40");
         endLabel.setColor(Color.WHITE);
         add(endLabel);
+
     }
 
     public void barrierResponse(){
