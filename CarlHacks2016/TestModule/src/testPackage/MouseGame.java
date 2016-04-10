@@ -44,9 +44,9 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 //        bg.setSize(WIDTH, HEIGHT);
 //        add(bg);
 
-        mouse1 = new Mouse (100,100);
+        mouse1 = new Mouse (600,600);
         add(mouse1.mouse);
-        door1 = new Door(600,600);
+        door1 = new Door(100,100);
         add(door1.door);
 
 
@@ -60,6 +60,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
             System.out.println(mouse1.getX());
             System.out.println(mouse1.getY());
 
+
             GPoint direction = pathFinder(cheeses);
             double xMove = direction.getX()*2;
             double yMove = direction.getY()*2;
@@ -67,8 +68,8 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
             mouse1.mouse.move(xMove, yMove);
 
 
-            mouse1.setX(mouse1.getX() + direction.getX());
-            mouse1.setY(mouse1.getY() + direction.getY());
+            mouse1.setX(mouse1.getX() + direction.getX()*2);
+            mouse1.setY(mouse1.getY() + direction.getY()*2);
 
             if (hitsDoor(mouse1)){
                 endgame();
@@ -83,7 +84,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 
     public GPoint pathFinder(Stack<Cheese> cheeses){
 
-        System.out.println("SDJKHFGKSDFJHGKSFDJHGSDFKJHGFSKJHGDFKJHSDFGKSDJFHG");
+//        System.out.println("SDJKHFGKSDFJHGKSFDJHGSDFKJHGFSKJHGDFKJHSDFGKSDJFHG");
         Stack newCheeses = new Stack <Cheese> ();
 
         Cheese emptyCheese = new Cheese(0,0);
@@ -98,8 +99,8 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         //add up all cheese-mouse vectors
             while ((cheeses.peek().getEmptyCheese()).equals("Hi")) {
                 Cheese chz = cheeses.pop();
-                double vectorX = chz.getX() - mouse1.getX();
-                double vectorY = chz.getY() - mouse1.getY();
+                double vectorX = (chz.getX() - mouse1.getX())/Math.pow(distance(mouse1.mouse.getLocation(),chz.cheese.getLocation()),3);
+                double vectorY = (chz.getY() - mouse1.getY())/Math.pow(distance(mouse1.mouse.getLocation(),chz.cheese.getLocation()),3);
                 totalX += vectorX;
                 totalY += vectorY;
                 newCheeses.push(chz);
@@ -108,6 +109,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         //Scale down to unit vector
 
         double length = distance(new GPoint(0,0), new GPoint(totalX,totalY));
+        System.out.println(totalX);
 
         if (length==0){
             return new GPoint (0,0);
