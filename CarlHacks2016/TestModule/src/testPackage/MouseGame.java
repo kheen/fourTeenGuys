@@ -47,7 +47,7 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
 
         barrier1 = new Barrier(0, 250, 320, 20);
         barrier2 = new Barrier(300, 350, 350, 110);
-        barrier3 = new Barrier(200, 600, 240, 300);
+        barrier3 = new Barrier(200, 600, 240, 100);
         barrier4 = new Barrier(800, 200, 80, 400);
         barrier5 = new Barrier(500, 0, 80, 250);
 
