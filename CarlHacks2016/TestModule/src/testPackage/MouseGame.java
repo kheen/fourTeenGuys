@@ -39,11 +39,17 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         addMouseListeners();
         cheeses = new Stack <Cheese> ();
 
-        barrier1 = new Barrier(0, 0, 0, 0);
-        barrier2 = new Barrier(0, 200, 0, 0);
-        barrier3 = new Barrier(0, 150, 0, 0);
-        barrier4 = new Barrier(0, 300, 0, 0);
-        barrier5 = new Barrier(0, 0, 0, 0);
+        try {
+            bg = new GImage(ImageIO.read(getClass().getResource("/floor.jpg")));
+        } catch (IOException e) {}
+        bg.setSize(WIDTH, HEIGHT);
+        add(bg);
+
+        barrier1 = new Barrier(350, 80, 40, 300);
+        barrier2 = new Barrier(50, 200, 40, 300);
+        barrier3 = new Barrier(250, 150, 40, 300);
+        barrier4 = new Barrier(400, 300, 40, 300);
+        barrier5 = new Barrier(0, 40, 40, 300);
 
         add(barrier1);
         add(barrier2);
@@ -51,12 +57,6 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
         add(barrier4);
         add(barrier5);
 
-
-        try {
-            bg = new GImage(ImageIO.read(getClass().getResource("/floor.jpg")));
-        } catch (IOException e) {}
-        bg.setSize(WIDTH, HEIGHT);
-        add(bg);
 
         mouse1 = new Mouse (600,600);
         add(mouse1.mouse);
@@ -221,12 +221,14 @@ public class MouseGame extends GraphicsProgram implements MouseListener {
     public void endgame() {
         GLabel endLabel = new GLabel("Congratulations!");
         endLabel.setLocation(WIDTH / 2, HEIGHT / 2);
+        endLabel.setFont("Arial 40");
         add(endLabel);
     }
 
     public void barrierResponse(){
         GLabel endLabel = new GLabel ("GAME OVER. Go try League instead");
         endLabel.setLocation(WIDTH/2,HEIGHT/2);
+        //endLabel.setFont(new Font("Arial", Font.BOLD, 36));
         add(endLabel);
     }
 
